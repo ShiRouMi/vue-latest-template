@@ -78,5 +78,10 @@ module.exports = {
   },
   configureWebpack: {
     plugins
+  },
+  devServer: {
+    host: "0.0.0.0",
+    overlay: true,
+    port: 7007
   }
 }

@@ -2,7 +2,7 @@ import axios from "axios"
 import { Message } from "element-ui"
 import { startLoading, endLoading } from "./loading"
 import { getStorage } from './storage'
-
+import { addPending, removePending } from "./axiosCancel"
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, //api请求的baseURL
   timeout: 5000
@@ -29,6 +29,8 @@ const HTTP_CODE_MAP = {
 instance.interceptors.request.use(
   (config) => {
     startLoading()
+    removePending(config)
+    addPending(config)
     let token = getStorage("TOKEN")
     if (token) {
       config.headers.Authorization = "token " + token
@@ -48,6 +50,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     endLoading()
+    removePending(response)
     //以下状态可根据业务自定义
     switch (response.data.status) {
       // 响应成功，但是服务器返回失败的状态码

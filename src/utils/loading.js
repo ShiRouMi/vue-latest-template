@@ -14,8 +14,8 @@ export function startLoading() {
   loadingCount++ 
 }
 export function endLoading() {
+  loadingCount--
   if (loadingCount <=0) {
     loadingInstance.close()
   }
-  loadingCount--
 }
