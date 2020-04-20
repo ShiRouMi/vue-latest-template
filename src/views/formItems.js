@@ -3,7 +3,7 @@ export const formItems = [
     tag: 'input',
     itemAttrs: {
       label: '姓名',
-      class: 'xxx'
+      className: 'xxx'
     },
     attrs: {
       key: 'name',
@@ -44,6 +44,28 @@ export const formItems = [
         {value: '2', label: '睡觉'},
         {value: '3', label: '玩耍'},
       ]
+    }
+  },
+  {
+    tag: 'radio',
+    itemAttrs: {
+      label: '单选框'
+    },
+    attrs: {
+      value: "1",
+      key: "radio",
+      options: [{ value: "1", label: "男" }, { value: "2", label: "女" }]
+    }
+  },
+  {
+    tag: 'radio',
+    itemAttrs: {
+      label: '调用后端接口--单选框'
+    },
+    attrs: {
+      value: '1',
+      key: "asyncRadio",
+      options: []
     }
   }
 ]

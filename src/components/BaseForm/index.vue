@@ -3,18 +3,25 @@
           class="base-form"
           v-bind="$attrs"
           :api="api"
+          :model="Model"
+          v-on="$listeners"
           :ref="form">
 
       <template v-for="(item, index) in _formItems">
 
         <el-form-item
-              :key="index"
+              :key="index + item.attrs.key"
               v-if="item._ifRender"
+              :class="item.itemAttrs.className"
               v-bind="item.itemAttrs || {}"
               :prop="item.attrs.key">
 
+            <!--将表单内部的数据通过作用域插槽传给外部-->
+              <slot v-if="item.slot" :name="item.slot" :scope="Model" />
               <component
+                v-else
                 :is="item.tag"
+                :class="item.itemAttrs.className"
                 v-bind="item.attrs || {}"
                 v-on="item.listeners || {}" 
                 v-model="Model[item.attrs.key]"
@@ -24,8 +31,12 @@
       </template>
 
       <el-form-item v-if="submit || reset">
-        <el-button @click="handleSubmit()">搜索</el-button>
-        <el-button @click="handleReset">重置</el-button>
+        <el-button type="primary" @click="handleSubmit" v-if="submit">{{
+          $attrs.submitContext || '搜索'
+        }}</el-button>
+        <el-button @click="handleReset" v-if="reset">{{
+          $attrs.resetContext || '重置'
+        }}</el-button>
       </el-form-item>
   </el-form>
 </template>
@@ -51,6 +62,11 @@ export default {
     reset: {
       type: Boolean,
       default: true
+    },
+    //传入mergeForm允许父组件修改内部Model对象
+    mergeForm: {
+      type: Object,
+      default: () => {}
     }
   },
   data: function() {
@@ -74,10 +90,18 @@ export default {
     formItem: {
       handler() {
         this.formItems.forEach(formItem => {
+          if (!formItem.attrs || !formItem.attrs.key) return; //跳过没有key的属性(插槽)
           this.$set(this.Model, formItem.attrs.key, (
             formItem.attrs.value ? formItem.attrs.value : ''
           ))
         })
+      },
+      deep: true,
+      immediate: true
+    },
+    mergeForm: {
+      handler() {
+        this.mergeModel();
       },
       deep: true,
       immediate: true
@@ -113,6 +137,10 @@ export default {
     },
     handleReset() {
       this.Model = JSON.parse(JSON.stringify(this.originModel));
+    },
+
+    mergeModel() {
+      Object.assign(this.Model, this.mergeForm);
     }
   }
 }

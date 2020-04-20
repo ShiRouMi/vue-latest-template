@@ -3,6 +3,7 @@ import { Message } from "element-ui"
 import { startLoading, endLoading } from "./loading"
 import { getStorage } from './storage'
 import { addPending, removePending } from "./axiosCancel"
+
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, //api请求的baseURL
   timeout: 5000

@@ -25,6 +25,18 @@ export default {
     }
   },
   methods: {
+    findItem(key) {
+      return this.formItems.find(
+        formItem => formItem.attrs && formItem.attrs.key === key
+      )
+    },
+    getInfo() {
+      const res = [{ value: "1", label: "吃饭" }, { value: "2", label: "睡觉" }]
+      this.findItem('asyncRadio').attrs.options = res
+    }
+  },
+  mounted() {
+    this.getInfo()
   }
 }
 </script>
