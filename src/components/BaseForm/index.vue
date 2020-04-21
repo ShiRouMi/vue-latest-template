@@ -5,7 +5,8 @@
           :api="api"
           :model="Model"
           v-on="$listeners"
-          :ref="form">
+          :ref="form"
+          :inline="inline">
 
       <template v-for="(item, index) in _formItems">
 
@@ -67,6 +68,10 @@ export default {
     mergeForm: {
       type: Object,
       default: () => {}
+    },
+    inline: {
+      type: Boolean,
+      default: false
     }
   },
   data: function() {

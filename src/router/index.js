@@ -7,6 +7,10 @@ const constantRoutes = [
   {
     path: '/',
     component: () => import('@/views/index')
+  },
+  {
+    path: '/form',
+    component: () => import('@/views/form')
   }
 ]
 const router = new VueRouter({
