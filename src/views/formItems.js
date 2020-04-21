@@ -369,18 +369,6 @@ export const formItems = [
     }
   },
   {
-    tag: 'rate',
-    itemAttrs: {
-      label: '评分'
-    },
-    attrs: {
-      key: 'rate',
-      value: null,
-      colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
-      'show-text': true
-    }
-  },
-  {
     tag: 'color-picker',
     itemAttrs: {
       label: '颜色选择器'
@@ -412,16 +400,9 @@ export const formItems = [
     }
   },
   {
-    tag: 'upload',
+    slot: "slotCheckBox",
     itemAttrs: {
-      label: '穿梭框'
-    },
-    attrs: {
-      action: "https://jsonplaceholder.typicode.com/posts/",
-      'on-preview': "handlePreview",
-      'on-remove': "handleRemove",
-      'file-list': "fileList",
-      'list-type': "picture"
+      label: "插槽复选框"
     }
   }
 ]

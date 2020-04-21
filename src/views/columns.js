@@ -1,18 +1,18 @@
 export const columns = [
   {
-    attrs: {label: "姓名", prop: "name", width: '80'}
+    attrs: {type: "selection", width: 55}
   },
   {
-    attrs: {label: "年龄", prop: "age"}
+    attrs: {type: "index", width: 50},
+    hidden: true
   },
   {
-    attrs: {label: "兴趣", prop: "hobby"}
+    attrs: {label: "日期", prop: "date"}
   },
   {
-    attrs: {label: "手机", prop: "mobile", width: '150'}
+    attrs: {label: "姓名", prop: "name"}
   },
   {
-    slot: 'complexItem',
-    attrs: {label: "复杂数据表头", prop: "complexItem"}
+    attrs: {label: "地址", prop: "address"}
   }
 ]

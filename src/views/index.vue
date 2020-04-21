@@ -1,27 +1,49 @@
 <template>
   <div id="example">
-    <!-- <base-table :columns="columns"></base-table> -->
+    <base-table :columns="columns" :data="tableData">
+    </base-table>
+    
+    <hr />
+    
     <base-form
         class="example-base-form"
         submitContext="快提交"
         :form-items="formItems">
+
+        <template v-slot:slotCheckBox>
+          <el-checkbox v-model="mergeForm.slotCheckBox">插槽复选框1</el-checkbox>
+        </template>
     </base-form>
   </div>
 </template>
 <script>
-// import BaseTable from '@/components/BaseTable'
-import BaseForm from '@/components/BaseForm'
 import { formItems } from "./formItems";
 import { columns } from './columns'
 export default {
-  components: {
-    // BaseTable,
-    BaseForm
-  },
   data: function() {
     return {
       formItems,
-      columns: columns
+      columns: columns,
+      mergeForm: {
+        slotCheckBox: ""
+      },
+      tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
     }
   },
   methods: {

@@ -5,8 +5,7 @@
           :api="api"
           :model="Model"
           v-on="$listeners"
-          :ref="form"
-          :inline="inline">
+          :ref="form">
 
       <template v-for="(item, index) in _formItems">
 
@@ -17,8 +16,7 @@
               v-bind="item.itemAttrs || {}"
               :prop="item.attrs.key">
 
-            <!--将表单内部的数据通过作用域插槽传给外部-->
-              <slot v-if="item.slot" :name="item.slot" :scope="Model" />
+              <slot v-if="item.slot" :name="item.slot" />
               <component
                 v-else
                 :is="item.tag"
@@ -68,10 +66,6 @@ export default {
     mergeForm: {
       type: Object,
       default: () => {}
-    },
-    inline: {
-      type: Boolean,
-      default: false
     }
   },
   data: function() {
