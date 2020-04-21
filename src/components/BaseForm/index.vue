@@ -24,7 +24,7 @@
                 :is="item.tag"
                 :class="item.itemAttrs.className"
                 v-bind="item.attrs || {}"
-                v-on="item.listeners || {}" 
+                v-on="item.listeners || {}"
                 v-model="Model[item.attrs.key]"
               />
 
@@ -64,7 +64,7 @@ export default {
       type: Boolean,
       default: true
     },
-    //传入mergeForm允许父组件修改内部Model对象
+    //传入mergeForm允许父组件修改内部 Model对象，比如修改表单的时候会有表单值的覆盖
     mergeForm: {
       type: Object,
       default: () => {}
@@ -96,17 +96,20 @@ export default {
       handler() {
         this.formItems.forEach(formItem => {
           if (!formItem.attrs || !formItem.attrs.key) return; //跳过没有key的属性(插槽)
-          this.$set(this.Model, formItem.attrs.key, (
+          this.$set(
+            this.Model,
+            formItem.attrs.key,
             formItem.attrs.value ? formItem.attrs.value : ''
-          ))
+          )
         })
+        this.originModel = JSON.parse(JSON.stringify(this.Model));
       },
       deep: true,
       immediate: true
     },
     mergeForm: {
       handler() {
-        this.mergeModel();
+        Object.assign(this.Model, this.mergeForm);
       },
       deep: true,
       immediate: true
@@ -142,10 +145,6 @@ export default {
     },
     handleReset() {
       this.Model = JSON.parse(JSON.stringify(this.originModel));
-    },
-
-    mergeModel() {
-      Object.assign(this.Model, this.mergeForm);
     }
   }
 }
