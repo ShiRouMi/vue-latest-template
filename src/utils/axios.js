@@ -32,7 +32,7 @@ instance.interceptors.request.use(
     startLoading()
     removePending(config)
     addPending(config)
-    let token = getStorage("TOKEN")
+    let token = getStorage("TOKEN") // 可能是存在 store 里，根据真实业务做调整
     if (token) {
       config.headers.Authorization = "token " + token
     }
