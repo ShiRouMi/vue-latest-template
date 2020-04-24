@@ -1,11 +1,13 @@
-import _mapValues from "lodash/mapValues"
+import mapValues from "lodash/mapValues"
 import _set from "lodash/set"
 import _get from "lodash/get" 
-import _isNumber from "lodash/isNumber"
-import _isString from "lodash/isString"
-import _isArray from "lodash/isArray"
-import _isDate from "lodash/isDate"
-import _isBoolean from "lodash/isBoolean"
+import isNumber from "lodash/isNumber"
+import isString from "lodash/isString"
+import isArray from "lodash/isArray"
+import isDate from "lodash/isDate"
+import isBoolean from "lodash/isBoolean"
+import isPlainObject from "lodash/isPlainObject"
+import isNull from "lodash/isNull"
 import _manba from "manba"
 
 /**
@@ -30,7 +32,7 @@ class Model {
    */
   parse(data = {}) {
     // mapValues 创建一个对象，这个对象的key与object对象相同，值是通过 iteratee 运行 object 中每个自身可枚举属性名字符串产生的。
-    _mapValues(this._attributes, (attribute, key) => {
+    mapValues(this._attributes, (attribute, key) => {
       let path = attribute.path,
         type = new attribute.type(),
         unit = attribute.unit
@@ -54,8 +56,8 @@ class Model {
   traverse(data = {}) {
     if (!data) return this
     let object = {}
-    _mapValues(this._attributes, (attribute, key) => {
-      let path = attribute.property,
+    mapValues(this._attributes, (attribute, key) => {
+      let path = attribute.path,
         unit = attribute.unit,
         type = new attribute.type(),
         sourceValue = data[key]
@@ -76,7 +78,7 @@ class Model {
     if (unit) {
       distValue = distValue / PRICE[unit]
     }
-    if (_isDate(type)) {
+    if (isDate(type)) {
       distValue = _manba(parseFloat(distValue)).format("l")
     }
     return distValue
@@ -89,7 +91,7 @@ class Model {
    * @param {*} type
    */
   discompose(sourceValue, unit, key, type) {
-    if (_isDate(type)) {
+    if (isDate(type)) {
       sourceValue = _manba(sourceValue).time()
     }
     if (unit) {
@@ -132,16 +134,20 @@ class Model {
   setDefaultValue(Type) {
     let value = "",
       type = new Type()
-    if (_isNumber(type)) {
+    if (isNumber(type)) {
       value = 0
-    } else if (_isString(type)) {
-      value = ""
-    } else if (_isArray(type)) {
-      value = []
-    } else if (_isBoolean(type)) {
+    } else if (isBoolean(type)) {
       value = true
-    } else if (_isDate(type)) {
+    } else if (isString(type)) {
+      value = ""
+    } else if (isArray(type)) {
+      value = []
+    } else if (isDate(type)) {
       value = Date.now()
+    } else if (isPlainObject(type)) {
+      value = {}
+    } else if (isNull(type)) {
+      value = null
     }
 
     return value

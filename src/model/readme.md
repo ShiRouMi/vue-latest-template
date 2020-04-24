@@ -37,4 +37,16 @@ let userModel = new Model({
     path: "price",
   },
 })
+
+// 后台返回数据的格式
+let data = {
+  uuid: 123,
+  buyer: {
+    shopinfo: {
+      nickname: "张三",
+    }
+  },
+  price: 1000,
+  lastLoginTime: "1563897600000"
+}
 ```

@@ -34,9 +34,18 @@ export default {
       price: 1000,
       lastLoginTime: "1563897600000",
     }
-    
-    let userState = this.userModel.parse(data)
-    this.userState = userState
+    let data2 = {
+      id: 234,
+      name: "李四",
+      age: 25,
+      lastLoginTime: "2019-07-24",
+      price: 24,
+    }
+    let dd1 = this.userModel.parse(data)
+    let dd2 = this.userModel.traverse(data2)
+    console.log(dd1)
+    console.log(dd2)
+    this.userState = dd1
   }
 }
 </script>

@@ -2,30 +2,30 @@ import Model from './index'
 const userModel = new Model({
   id: {
     type: Number,
-    property: "uuid",
+    path: "uuid",
     value: 0,
   },
   name: {
     type: String,
-    property: "buyer.shopinfo.nickname",
+    path: "buyer.shopinfo.nickname",
     value: "",
   },
   items: {
     type: String,
-    property: "items",
+    path: "items",
   },
   age: {
     type: Number,
-    property: "age",
+    path: "age",
   },
   lastLoginTime: {
     type: Date,
-    property: "lastLoginTime",
+    path: "lastLoginTime",
   },
   price: {
     type: Number,
     unit: "B",
-    property: "price",
+    path: "price",
   },
 })
 
