@@ -42,8 +42,7 @@ class Model {
         distValue = this.compose(distValue, type, unit)
       }
       // 如果返回的对象不包括这个值，那么获取默认值
-      let value =
-        distValue || this.getDefaultValue(attribute.value, attribute.type)
+      let value = distValue || this.getDefaultValue(attribute.value, type)
       this.set(key, value)
     })
     return this
@@ -60,13 +59,14 @@ class Model {
         unit = attribute.unit,
         type = new attribute.type(),
         sourceValue = data[key]
+      let value
       if (sourceValue) {
-        let value = this.discompose(sourceValue, unit, key, type)
-        _set(object, path, value)
+        value = this.discompose(sourceValue, unit, key, type)
       } else {
-        let value = this.getDefaultValue(attribute.value, attribute.type)
-        _set(object, path, value)
+        value = this.getDefaultValue(attribute.value, type)
       }
+
+      _set(object, path, value)
       
     })
     return object
@@ -132,11 +132,10 @@ class Model {
   }
   /**
    * 设置默认值
-   * @param {*} Type
+   * @param {*} type
    */
-  setDefaultValue(Type) {
-    let value = "",
-      type = new Type()
+  setDefaultValue(type) {
+    let value = ""
     if (isNumber(type)) {
       value = 0
     } else if (isBoolean(type)) {
