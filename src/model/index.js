@@ -37,7 +37,6 @@ class Model {
         type = new attribute.type(),
         unit = attribute.unit
       let distValue = _get(data, path) // 根据 object对象的 path 路径获取值。
-
       // 格式化值（时间格式化，价值格式化）
       if (distValue) {
         distValue = this.compose(distValue, type, unit)
@@ -64,7 +63,11 @@ class Model {
       if (sourceValue) {
         let value = this.discompose(sourceValue, unit, key, type)
         _set(object, path, value)
+      } else {
+        let value = this.getDefaultValue(attribute.value, attribute.type)
+        _set(object, path, value)
       }
+      
     })
     return object
   }
