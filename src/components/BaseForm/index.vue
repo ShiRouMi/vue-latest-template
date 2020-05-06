@@ -27,6 +27,7 @@
               />
 
         </el-form-item>
+        
       </template>
 
       <el-form-item v-if="submit || reset">
@@ -93,7 +94,7 @@ export default {
           this.$set(
             this.Model,
             formItem.attrs.key,
-            formItem.attrs.value ? formItem.attrs.value : ''
+            formItem.attrs.value ? formItem.attrs.value : '' // TODO: 考虑实际值为 0 或者 false 情况
           )
         })
         this.originModel = JSON.parse(JSON.stringify(this.Model));
