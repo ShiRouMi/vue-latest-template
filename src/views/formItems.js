@@ -25,7 +25,10 @@ export const formItems = [
     tag: 'input',
     itemAttrs: {
       label: '姓名',
-      className: 'xxx'
+      className: 'xxx',
+      rules: [{
+        required: true, message: '请输入姓名', trigger: 'click'
+      },{ min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }]
     },
     attrs: {
       key: 'name',
