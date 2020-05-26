@@ -15,6 +15,10 @@ const constantRoutes = [
   {
     path: '/model',
     component: () => import('@/views/model')
+  },
+  {
+    path: '/slide',
+    component: () => import('@/views/slide')
   }
 ]
 const router = new VueRouter({
